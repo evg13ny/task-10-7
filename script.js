@@ -2,7 +2,7 @@ let minValue = parseInt(prompt('Минимальное знание числа �
 minValue = (-999 <= minValue && minValue <= 999) ? minValue : -999;
 let maxValue = parseInt(prompt('Максимальное знание числа для игры', '100')) || 100;
 maxValue = (-999 <= maxValue && maxValue <= 999) ? maxValue : 999;
-alert('Загадайте любое целое число от ${minValue} до ${maxValue}, а я его угадаю');
+alert(`Загадайте любое целое число от ${minValue} до ${maxValue}, а я его угадаю`);
 let answerNumber = Math.floor((minValue + maxValue) / 2);
 let orderNumber = 1;
 let gameRun = true;
@@ -91,7 +91,7 @@ function figure2text(number) {
 
 
 orderNumberField.innerText = orderNumber;
-answerField.innerText = 'Вы загадали число ${figure2text(answerNumber)}?';
+answerField.innerText = `Вы загадали число ${figure2text(answerNumber)}?`;
 
 document.getElementById('btnRetry').addEventListener('click', function () {
     minValue = parseInt(prompt('Минимальное знание числа для игры', '0')) || 0;
@@ -100,9 +100,9 @@ document.getElementById('btnRetry').addEventListener('click', function () {
     maxValue = (-999 <= maxValue && maxValue <= 999) ? maxValue : 999;
     orderNumber = 1;
     answerNumber = Math.floor((minValue + maxValue) / 2);
-    alert('Загадайте любое целое число от ${minValue} до ${maxValue}, а я его угадаю');
+    alert(`Загадайте любое целое число от ${minValue} до ${maxValue}, а я его угадаю`);
     orderNumberField.innerText = orderNumber;
-    answerField.innerText = 'Вы загадали число ${figure2text(answerNumber)}?';
+    answerField.innerText = `Вы загадали число ${figure2text(answerNumber)}?`;
     gameRun = true;
 })
 
@@ -122,10 +122,10 @@ document.getElementById('btnOver').addEventListener('click', function () {
             orderNumberField.innerText = orderNumber;
             const phraseRandom = Math.round(Math.random() * 2);
             answerField.innerText = (phraseRandom === 0) ?
-                'Вы загадали число ${figure2text(answerNumber)}?' :
+                `Вы загадали число ${figure2text(answerNumber)}?` :
                 (phraseRandom === 1) ?
-                'Да это легко! Ты загадал ${figure2text(answerNumber) }?' :
-                'Наверное, это число ${figure2text(answerNumber )}?';
+                `Да это легко! Ты загадал ${figure2text(answerNumber) }?` :
+                `Наверное, это число ${figure2text(answerNumber )}?`;
         }
     }
 })
@@ -146,10 +146,10 @@ document.getElementById('btnLess').addEventListener('click', function () {
             orderNumberField.innerText = orderNumber;
             const phraseRandom = Math.round(Math.random() * 2);
             answerField.innerText = (phraseRandom === 0) ?
-                'Вы загадали число ${figure2text(answerNumber) }?' :
+                `Вы загадали число ${figure2text(answerNumber) }?` :
                 (phraseRandom === 1) ?
-                'Да это легко! Ты загадал ${figure2text(answerNumber) }?' :
-                'Наверное, это число ${figure2text(answerNumber) }?';
+                `Да это легко! Ты загадал ${figure2text(answerNumber) }?` :
+                `Наверное, это число ${figure2text(answerNumber) }?`;
         }
     }
 })
