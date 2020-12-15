@@ -2,3 +2,16 @@
     height: 100vh;
     font-family: 'Open Sans', monospace;
 }
+
+.card-header,
+.card-footer {
+    background-color:LightCyan;
+}
+
+.card-body {
+    background-color: SkyBlue;
+}
+
+.card {
+    border-color: Black;
+}

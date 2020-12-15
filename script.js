@@ -1,16 +1,17 @@
-let minValue = parseInt(prompt('Минимальное знание числа для игры', '0')) || 0;
-minValue = (-999 <= minValue && minValue <= 999) ? minValue : -999;
-let maxValue = parseInt(prompt('Максимальное знание числа для игры', '100')) || 100;
-maxValue = (-999 <= maxValue && maxValue <= 999) ? maxValue : 999;
-alert(`Загадайте любое целое число от ${minValue} до ${maxValue}, а я его угадаю`);
-let answerNumber = Math.floor((minValue + maxValue) / 2);
+let minValue;
+let maxValue;
+let answerNumber;
 let orderNumber = 1;
 let gameRun = true;
 
+const inputMin = document.getElementById('inputMin');
+const inputMax = document.getElementById('inputMax');
 const orderNumberField = document.getElementById('orderNumberField');
 const answerField = document.getElementById('answerField');
 
+orderNumberField.innerText = orderNumber;
 
+// преобразование числа в текст по остатку от деления
 function figure2text(number) {
     let units = {
         1: 'один',
@@ -84,28 +85,64 @@ function figure2text(number) {
     if (num > 0 && num < 10) {
         text += units[num];
     }
-    
+
     text.trim;
-    return text.length <= 20 ? text : number;
+    return text.length <= 20 ? text : number; // длина текста не более 20 символов
 }
 
+// минимальное значение
+inputMin.addEventListener('change', function () {
+    minValue = parseInt(inputMin.value);
+    minValue = isNaN(minValue) ? 0 : minValue; // если NaN
+    minValue = (-999 <= minValue && minValue <= 999) ? minValue : -999; // при выходе за границы
+})
 
-orderNumberField.innerText = orderNumber;
-answerField.innerText = `Вы загадали число ${figure2text(answerNumber)}?`;
+// максимальное значение
+inputMax.addEventListener('change', function () {
+    maxValue = parseInt(inputMax.value);
+    maxValue = isNaN(maxValue) ? 100 : maxValue; // если NaN
+    maxValue = (-999 <= maxValue && maxValue <= 999) ? maxValue : 999; // при выходе за границы
+})
 
-document.getElementById('btnRetry').addEventListener('click', function () {
-    minValue = parseInt(prompt('Минимальное знание числа для игры', '0')) || 0;
-    minValue = (-999 <= minValue && minValue <= 999) ? minValue : -999;
-    maxValue = parseInt(prompt('Максимальное знание числа для игры', '100')) || 100;
-    maxValue = (-999 <= maxValue && maxValue <= 999) ? maxValue : 999;
-    orderNumber = 1;
+// кнопка Начать игру
+document.getElementById('btnStart').addEventListener('click', function () {
+    if (minValue > maxValue) { // если min max перепутаны местами
+        let temp = minValue;
+        minValue = maxValue;
+        maxValue = temp;
+    };
+    minValue = isNaN(minValue) ? 0 : minValue; // если NaN
+    maxValue = isNaN(maxValue) ? 100 : maxValue; // если NaN
+    document.getElementById('leftEdge').innerText = minValue;
+    document.getElementById('rightEdge').innerText = maxValue;
+    document.getElementById('secondScreen').classList.remove("d-none"); // смена экрана
+    document.getElementById('firstScreen').classList.add("d-none");
+})
+
+// кнопка Начали
+document.getElementById('btnGoOn').addEventListener('click', function () {
+    document.getElementById('leftEdge').innerText = minValue;
+    document.getElementById('rightEdge').innerText = maxValue;
+    document.getElementById('thirdScreen').classList.remove("d-none"); // смена экрана
+    document.getElementById('secondScreen').classList.add("d-none");
     answerNumber = Math.floor((minValue + maxValue) / 2);
-    alert(`Загадайте любое целое число от ${minValue} до ${maxValue}, а я его угадаю`);
-    orderNumberField.innerText = orderNumber;
     answerField.innerText = `Вы загадали число ${figure2text(answerNumber)}?`;
+})
+
+// кнопка Заново
+document.getElementById('btnRetry').addEventListener('click', function () {
+    inputMin.value = ''; // сброс минимального значения
+    minValue = parseInt(inputMin.value);
+    inputMax.value = ''; // сброс максимального значения
+    maxValue = parseInt(inputMax.value);
+    orderNumber = 1; // сброс количества вопросов
+    orderNumberField.innerText = orderNumber;
+    document.getElementById('firstScreen').classList.remove("d-none"); // смена экрана
+    document.getElementById('thirdScreen').classList.add("d-none");
     gameRun = true;
 })
 
+// кнопка Больше
 document.getElementById('btnOver').addEventListener('click', function () {
     if (gameRun) {
         if (minValue === maxValue) {
@@ -116,11 +153,11 @@ document.getElementById('btnOver').addEventListener('click', function () {
             answerField.innerText = answerPhrase;
             gameRun = false;
         } else {
-            minValue = answerNumber + 1;
+            minValue = answerNumber + 1; // изменение нижней границы поискового диапазона
             answerNumber = Math.floor((minValue + maxValue) / 2);
             orderNumber++;
             orderNumberField.innerText = orderNumber;
-            const phraseRandom = Math.round(Math.random() * 2);
+            const phraseRandom = Math.round(Math.random() * 2); // вопрос в 3 вариантах
             answerField.innerText = (phraseRandom === 0) ?
                 `Вы загадали число ${figure2text(answerNumber)}?` :
                 (phraseRandom === 1) ?
@@ -130,6 +167,7 @@ document.getElementById('btnOver').addEventListener('click', function () {
     }
 })
 
+// кнопка Меньше
 document.getElementById('btnLess').addEventListener('click', function () {
     if (gameRun) {
         if (minValue === maxValue) {
@@ -140,11 +178,11 @@ document.getElementById('btnLess').addEventListener('click', function () {
             answerField.innerText = answerPhrase;
             gameRun = false;
         } else {
-            maxValue = answerNumber;
+            maxValue = answerNumber; // изменение верхней границы поискового диапазона
             answerNumber = Math.floor((minValue + maxValue) / 2);
             orderNumber++;
             orderNumberField.innerText = orderNumber;
-            const phraseRandom = Math.round(Math.random() * 2);
+            const phraseRandom = Math.round(Math.random() * 2); // вопрос в 3 вариантах
             answerField.innerText = (phraseRandom === 0) ?
                 `Вы загадали число ${figure2text(answerNumber) }?` :
                 (phraseRandom === 1) ?
@@ -154,9 +192,10 @@ document.getElementById('btnLess').addEventListener('click', function () {
     }
 })
 
+// кнопка Верно
 document.getElementById('btnEqual').addEventListener('click', function () {
     if (gameRun) {
-        const phraseRandom = Math.round(Math.random() * 2);
+        const phraseRandom = Math.round(Math.random() * 2); // сообщение об успехе в 3 вариантах
         answerField.innerText = (phraseRandom === 0) ?
             'Я всегда угадываю\n\u{1F60E}' :
             (phraseRandom === 1) ?

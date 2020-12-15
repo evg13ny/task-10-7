@@ -1,42 +1,95 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <title>Угадайка</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans" rel="stylesheet">
-    <link rel="stylesheet" href="style.css" type="text/css"/>
+    <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
+
 <body>
-<div class="container">
-    <div class="row game-card align-items-center">
-        <div class="col col-md-4 offset-md-4">
-            <div class="card text-center">
-                <div class="card-header">
-                    <p class="m-0">Вопрос №<span id="orderNumberField">5</span></p>
-                </div>
-                <div class="card-body">
-                    <div class="row no-gutters">
-                        <div class="col">
-                            <h3 class="card-title m-0"><span id="answerField">Вы загадали число 5?</span></h3>
+    <main>
+        <div class="container">
+            <div class="row game-card align-items-center">
+
+                <!-- Убираю Promt -->
+                <div class="col col-md-4 offset-md-4" id="firstScreen">
+                    <div class="card text-center">
+                        <div class="card-header">
+                            <p class="m-0">Определите границы игры</p>
+                        </div>
+                        <div class="card-body">
+                            <form>
+                                <p>
+                                    <label for="min">Минимальное значение</label>
+                                    <input type="text" id="inputMin" maxLength="5" size="8">
+                                </p>
+                                <p>
+                                    <label for="max">Максимальное значение</label>
+                                    <input type="text" id="inputMax" maxLength="5" size="8">
+                                </p>
+                            </form>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-link" id="btnStart">Начать игру</button>
                         </div>
                     </div>
                 </div>
-                <div class="card-body">
-                    <div class="btn-group">
-                        <button class="btn btn-info" id="btnLess">&#129047;<br>меньше</button>
-                        <button class="btn btn-success btn-lg" id="btnEqual">Верно!</button>
-                        <button class="btn btn-info" id="btnOver">больше<br>&#129045;</button>
+
+                <!-- Убираю Alert -->
+                <div class="col col-md-4 offset-md-4 d-none" id="secondScreen">
+                    <div class="card text-center">
+                        <div class="card-header">
+                            <p class="m-0">Загадайте число</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="row no-gutters">
+                                <div class="col">
+                                    <h3>Загадайте любое целое число</h3>
+                                    <h3>от <span id="leftEdge">0</span> до <span id="rightEdge">100</span></h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-link" id="btnGoOn">Начали</button>
+                        </div>
                     </div>
                 </div>
-                <div class="card-footer">
-                    <button class="btn btn-link" id="btnRetry">Заново</button>
+
+                <!-- Игра -->
+                <div class="col col-md-4 offset-md-4 d-none" id="thirdScreen">
+                    <div class="card text-center">
+                        <div class="card-header">
+                            <p class="m-0">Вопрос №<span id="orderNumberField">5</span></p>
+                        </div>
+                        <div class="card-body">
+                            <div class="row no-gutters">
+                                <div class="col">
+                                    <h3 class="card-title m-0"><span id="answerField">Вы загадали число 5?</span></h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="btn-group">
+                                <button class="btn btn-info" id="btnLess">&#129047;<br>меньше</button>
+                                <button class="btn btn-success btn-lg" id="btnEqual">Верно!</button>
+                                <button class="btn btn-info" id="btnOver">больше<br>&#129045;</button>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <button class="btn btn-link" id="btnRetry">Заново</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
-<script src="script.js"></script>
+
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <script src="script.js"></script>
+    </main>
 </body>
+
 </html>
